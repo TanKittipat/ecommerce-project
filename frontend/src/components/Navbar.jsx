@@ -28,16 +28,45 @@ const Navbar = () => {
           </ul>
         </details>
       </li>
-      <li>
-        <a href="">Service</a>
+      <li tabIndex={0}>
+        <details>
+          <summary>Service</summary>
+          <ul>
+            <li>
+              <a href="">Order online</a>
+            </li>
+            <li>
+              <a href="">Order tracking</a>
+            </li>
+          </ul>
+        </details>
       </li>
-      <li>
-        <a href="">Promotion</a>
+      <li tabIndex={0}>
+        <details>
+          <summary>Promotions</summary>
+          <ul>
+            <li>
+              <a href="">All</a>
+            </li>
+            <li>
+              <a href="">Clothing</a>
+            </li>
+            <li>
+              <a href="">Accessories</a>
+            </li>
+            <li>
+              <a href="">Gadgets</a>
+            </li>
+            <li>
+              <a href="">Swag</a>
+            </li>
+          </ul>
+        </details>
       </li>
     </>
   );
   return (
-    <div className="navbar bg-base-100 sticky top-0">
+    <div className="navbar bg-base-100 sticky top-0 z-50">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -63,7 +92,9 @@ const Navbar = () => {
             {navItems}
           </ul>
         </div>
-        <a className="btn btn-ghost font-semibold text-xl">SE Souvenirs</a>
+        <a href="/" className="btn btn-ghost font-semibold text-xl">
+          SE Souvenirs
+        </a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navItems}</ul>
