@@ -1,9 +1,13 @@
-import React from 'react'
+import Banner from "./Banner";
+import ProductLists from "./ProductLists";
 
 const Shop = () => {
   return (
-    <div>Shop</div>
-  )
-}
+    <div>
+      <Banner />
+      <ProductLists />
+    </div>
+  );
+};
 
-export default Shop
+export default Shop;

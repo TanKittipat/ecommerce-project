@@ -118,5 +118,29 @@
     "price": 3000,
     "image": "https://picsum.photos/200/300",
     "category": "gadgets"
+  },
+  {
+    "_id": "16",
+    "name": "Graphic T-Shirt",
+    "description": "T-shirt with bold graphic print for a stylish look.",
+    "price": 1200,
+    "image": "https://picsum.photos/200/300",
+    "category": "clothing"
+  },
+  {
+    "_id": "17",
+    "name": "Snapback Cap",
+    "description": "Trendy snapback cap with embroidered logo.",
+    "price": 1500,
+    "image": "https://picsum.photos/200/300",
+    "category": "swag"
+  },
+  {
+    "_id": "18",
+    "name": "Hoodie",
+    "description": "Comfy hoodie with a minimalist design.",
+    "price": 2500,
+    "image": "https://picsum.photos/200/300",
+    "category": "clothing"
   }
 ]

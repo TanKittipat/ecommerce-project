@@ -16,7 +16,9 @@ const Card = ({ item }) => {
         <input
           type="radio"
           name="rating-3"
-          className={`mask mask-heart ${isHeartFilled ? "bg-white" : ""}`}
+          className={`mask mask-heart ${
+            isHeartFilled ? "bg-white" : ""
+          } hover:bg-white transition-all delay-100`}
         />
       </div>
       <figure>
@@ -27,8 +29,8 @@ const Card = ({ item }) => {
         />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">{name}</h2>
-        <p className="line-clamp-1">{description}</p>
+        <h2 className="card-title line-clamp-1">{name}</h2>
+        <p className="line-clamp-2">{description}</p>
         <div className="card-action flex justify-between items-center mt-2">
           <h5 className="font-semibold">
             {price} <span className="text-sm text-red">฿</span>

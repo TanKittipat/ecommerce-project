@@ -6,8 +6,8 @@ const Footer = () => {
       <div className="footer bg-white text-base-content mt-6 p-10">
         <aside>
           <svg
-            width="50"
-            height="50"
+            width="40"
+            height="40"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
             fillRule="evenodd"
@@ -51,8 +51,8 @@ const Footer = () => {
           <a>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               className="fill-current"
             >
@@ -62,8 +62,8 @@ const Footer = () => {
           <a>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               className="fill-current"
             >
@@ -73,8 +73,8 @@ const Footer = () => {
           <a>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               className="fill-current"
             >
