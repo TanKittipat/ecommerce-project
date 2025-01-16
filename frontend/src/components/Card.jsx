@@ -28,7 +28,7 @@ const Card = ({ item }) => {
       </figure>
       <div className="card-body">
         <h2 className="card-title">{name}</h2>
-        <p>{description}</p>
+        <p className="line-clamp-1">{description}</p>
         <div className="card-action flex justify-between items-center mt-2">
           <h5 className="font-semibold">
             {price} <span className="text-sm text-red">฿</span>
