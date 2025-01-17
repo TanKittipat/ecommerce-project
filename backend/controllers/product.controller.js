@@ -1,6 +1,32 @@
 const ProductModel = require("../models/product.model");
 
 // create new post
+/**
+    #swagger.tags = ['Product']
+    #swagger.summary = "Create a new product"
+    #swagger.description = 'Endpoint to create a new product'
+    #swagger.consumes = ['multipart/form-data']
+    #swagger.parameters['file'] = {
+       in:'formData',
+       type:'file',
+       required:true,
+       description:'Image to upload to Firebase Storage and get its url'
+    }
+    #swagger.requestBody = {
+       required:true,
+       content:{
+         "multipart/form-data":{
+           schema:{
+             $ref:"#components/schemas/NewProduct"
+           }
+         }
+       }
+    }
+    #swagger.response[200] = {
+       schema:{ "$ref": "#components/schemas/ProductResponse"},
+       description: "Product created successfully"
+    }
+  */
 exports.createProduct = async (req, res) => {
   const { name, description, price, category} = req.body;
   if(!name || !description || !price || !category){
