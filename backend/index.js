@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 require("dotenv").config();
+const UserRoute = require("./routes/user.route")
+const ProductRoute = require("./routes/product.route")
 
 const port = process.env.PORT;
 const db_url = process.env.DB_URL;
@@ -28,6 +30,10 @@ app.get("/", (req, res) => {
 
 // Make app use json
 app.use(express.json());
+
+// Make app use router
+app.use("/api/v1/auth", UserRoute);
+app.use("/api/v1/products", ProductRoute);
 
 // Make app listen on selected port
 app.listen(port, () => {

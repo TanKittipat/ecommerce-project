@@ -10,15 +10,14 @@ const Card = ({ item }) => {
   return (
     <div className="card shadow-xl relative mr-5 md:my-5 h-120">
       <div
-        className="rating gap-1 absolute right-2 top-2 p-4 heartStar bg-red rounded-md"
+        className="rating gap-1 absolute right-2 top-2 p-4 heartStar z-40 bg-red rounded-md"
         onClick={handleHeartClick}
       >
         <input
           type="radio"
           name="rating-3"
-          className={`mask mask-heart ${
-            isHeartFilled ? "bg-white" : ""
-          } hover:bg-white transition-all delay-100`}
+          className={`mask mask-heart ${isHeartFilled ? "bg-white" : ""
+            } hover:bg-white transition-all delay-100`}
         />
       </div>
       <figure>

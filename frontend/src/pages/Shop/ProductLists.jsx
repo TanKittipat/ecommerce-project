@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ProductServices from "../../services/product.service";
 import Card from "../../components/Card";
+import { useSearchParams } from "react-router";
 
 const ProductLists = () => {
   const [products, setProducts] = useState([]);
@@ -10,6 +11,16 @@ const ProductLists = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [itemsPerPage, setItemsPerPage] = useState(8);
   const [currentPage, setCurrentPage] = useState(1);
+
+  // useSearchParams
+  const [searchParams, setSearchParams] = useSearchParams();
+  const categoryQuery = searchParams.get("category") || "all";
+  const itemsPerPageQuery = searchParams.get("itemsPerPage") || 4;
+
+  useEffect(() => {
+    setSelectedCategory(categoryQuery);
+    setItemsPerPage(itemsPerPageQuery);
+  }, [categoryQuery]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,6 +36,7 @@ const ProductLists = () => {
   const filterItem = (category) => {
     setSelectedCategory(category);
     handleSortChange(sortOption, filteredItems);
+    setSearchParams({ ["category"]: category });
     const filtered =
       category === "all"
         ? products
@@ -74,11 +86,10 @@ const ProductLists = () => {
               <button
                 onClick={() => filterItem(category)}
                 key={index}
-                className={`btn btn-ghost ${
-                  selectedCategory === category
-                    ? "text-red underline-offset-4 underline"
-                    : ""
-                }`}
+                className={`btn btn-ghost ${selectedCategory === category
+                  ? "text-red underline-offset-4 underline"
+                  : ""
+                  }`}
               >
                 <p className="capitalize">{category}</p>
               </button>
@@ -118,9 +129,8 @@ const ProductLists = () => {
           <button
             onClick={() => paginate(index + 1)}
             key={index}
-            className={`mx-1 btn btn-ghost ${
-              currentPage === index + 1 ? "bg-red text-white" : ""
-            }`}
+            className={`mx-1 btn btn-ghost ${currentPage === index + 1 ? "bg-red text-white" : ""
+              }`}
           >
             {index + 1}
           </button>

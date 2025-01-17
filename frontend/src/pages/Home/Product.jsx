@@ -3,8 +3,9 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { useState } from "react";
 import { useRef } from "react";
-import productLists from "../../../public/products.json";
 import Card from "../../components/Card";
+import { useEffect } from "react";
+import ProductServices from "../../services/product.service";
 
 const SampleNextArrow = (props) => {
   const { className, style, onClick } = props;
@@ -31,7 +32,18 @@ const SamplePrevArrow = (props) => {
 };
 
 const Product = () => {
-  const [products, setProducts] = useState(productLists);
+  const [products, setProducts] = useState([]);
+  useEffect(()=>{
+    const fetchData = async()=>{
+      const res = await ProductServices.getAllProducts();
+      if(res.status === 200) {
+        const specials = res.data.filter((item)=>item.category === "gadgets");
+        setProducts(specials)
+      }
+    }
+    fetchData()
+  },[]);
+
   const slider = useRef(null);
   const setting = {
     dots: true,
@@ -98,8 +110,8 @@ const Product = () => {
           className="overflow-hidden mt-10 space-x-5"
         >
           {products.length > 0 &&
-            products.map((item) => {
-              return <Card item={item} key={item._id} />;
+            products.map((item, index) => {
+              return <Card item={item} key={index} />;
             })}
         </Slider>
       </div>
