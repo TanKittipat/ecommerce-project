@@ -16,13 +16,7 @@ const Modal = ({ name }) => {
     signUpWithGithub,
     signUpWithFacebook,
   } = useContext(AuthContext);
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-    setValue,
-  } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
   const onSubmit = (data) => {
     if (name === "login") {
       login(data.email, data.password)

@@ -11,6 +11,7 @@ import {
   GithubAuthProvider,
   FacebookAuthProvider,
   signInWithPopup,
+  updateProfile,
 } from "firebase/auth";
 
 const AuthProvider = ({ children }) => {
@@ -43,6 +44,13 @@ const AuthProvider = ({ children }) => {
     return signInWithPopup(auth, provider);
   };
 
+  const updateUser = (name, profile) => {
+    return updateProfile(auth.currentUser, {
+      displayName: name,
+      photoURL: profile,
+    });
+  };
+
   const auth = getAuth(app);
 
   //   check if user is logged in?
@@ -64,6 +72,7 @@ const AuthProvider = ({ children }) => {
     signUpWithGoogle,
     signUpWithGithub,
     signUpWithFacebook,
+    updateUser,
   };
 
   return (
