@@ -8,6 +8,8 @@ import {
   signOut,
   onAuthStateChanged,
   GoogleAuthProvider,
+  GithubAuthProvider,
+  FacebookAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
 
@@ -31,6 +33,16 @@ const AuthProvider = ({ children }) => {
     return signInWithPopup(auth, provider);
   };
 
+  const signUpWithGithub = () => {
+    const provider = new GithubAuthProvider();
+    return signInWithPopup(auth, provider);
+  };
+
+  const signUpWithFacebook = () => {
+    const provider = new FacebookAuthProvider();
+    return signInWithPopup(auth, provider);
+  };
+
   const auth = getAuth(app);
 
   //   check if user is logged in?
@@ -44,7 +56,15 @@ const AuthProvider = ({ children }) => {
     return unsubscribe;
   }, [auth]);
 
-  const authInfo = { user, createUser, login, logout, signUpWithGoogle };
+  const authInfo = {
+    user,
+    createUser,
+    login,
+    logout,
+    signUpWithGoogle,
+    signUpWithGithub,
+    signUpWithFacebook,
+  };
 
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

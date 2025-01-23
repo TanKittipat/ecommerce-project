@@ -9,7 +9,13 @@ const Modal = ({ name }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state?.from?.pathname || "/";
-  const { login, createUser, signUpWithGoogle } = useContext(AuthContext);
+  const {
+    login,
+    createUser,
+    signUpWithGoogle,
+    signUpWithGithub,
+    signUpWithFacebook,
+  } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -71,6 +77,48 @@ const Modal = ({ name }) => {
         document.getElementById(name).close();
         Swal.fire({
           title: "Google authenticate",
+          text: "authenticate successfully!",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false,
+        }).then(() => {
+          navigate(from);
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const githubSignUp = () => {
+    signUpWithGithub()
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        document.getElementById(name).close();
+        Swal.fire({
+          title: "Github authenticate",
+          text: "authenticate successfully!",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false,
+        }).then(() => {
+          navigate(from);
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const facebookSignUp = () => {
+    signUpWithFacebook()
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        document.getElementById(name).close();
+        Swal.fire({
+          title: "Facebook authenticate",
           text: "authenticate successfully!",
           icon: "success",
           timer: 1500,
@@ -176,10 +224,16 @@ const Modal = ({ name }) => {
               >
                 <FaGoogle className="size-4" />
               </button>
-              <button className="btn rounded-full">
+              <button
+                onClick={() => facebookSignUp()}
+                className="btn rounded-full"
+              >
                 <FaFacebook className="size-4" />
               </button>
-              <button className="btn rounded-full">
+              <button
+                onClick={() => githubSignUp()}
+                className="btn rounded-full"
+              >
                 <FaGithub className="size-4" />
               </button>
             </div>
