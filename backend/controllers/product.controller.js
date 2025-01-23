@@ -28,16 +28,24 @@ const ProductModel = require("../models/product.model");
     }
   */
 exports.createProduct = async (req, res) => {
-  const { name, description, price, category} = req.body;
-  if(!name || !description || !price || !category){
-    return res.status(400).json({message:"Please provide all fields!"});
+  const { name, description, price, category } = req.body;
+  if (!name || !description || !price || !category) {
+    return res.status(400).json({ message: "Please provide all fields!" });
   }
-  if(!req.file) {
+  if (!req.file) {
     return res.status(400).json({ message: "Image is required!" });
   }
   try {
-    const newProduct = await ProductModel.create({ name, description, price, category, image:req.file.firebaseUrl });
-    res.status(200).json({ message: "Adding new product successfully.", newProduct });
+    const newProduct = await ProductModel.create({
+      name,
+      description,
+      price,
+      category,
+      image: req.file.firebaseUrl,
+    });
+    res
+      .status(200)
+      .json({ message: "Adding new product successfully.", newProduct });
   } catch (error) {
     res.status(500).json({
       message:
@@ -70,7 +78,8 @@ exports.getProductById = async (req, res) => {
     res.status(200).json(product);
   } catch (error) {
     res.status(500).json({
-      message: error.message || "Something error occurred while fetching product!",
+      message:
+        error.message || "Something error occurred while fetching product!",
     });
   }
 };
@@ -87,7 +96,8 @@ exports.deleteProduct = async (req, res) => {
     res.status(200).json({ message: "Product deleted." });
   } catch (error) {
     res.status(500).json({
-      message: error.message || "Something error occurred while deleting product!",
+      message:
+        error.message || "Something error occurred while deleting product!",
     });
   }
 };
@@ -115,8 +125,8 @@ exports.updateProduct = async (req, res) => {
     res.status(200).json({ message: "Product updated.", product });
   } catch (error) {
     res.status(500).json({
-      message: error.message || "Something error occurred while updating product!",
+      message:
+        error.message || "Something error occurred while updating product!",
     });
   }
 };
-
