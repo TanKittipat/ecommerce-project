@@ -111,7 +111,13 @@ const Navbar = () => {
         {user ? (
           <Profile />
         ) : (
-          <div className="space-x-2">
+          <div className="space-x-2 flex">
+            <button
+              onClick={() => document.getElementById("register").showModal()}
+              className="btn btn-ghost rounded-full px-5 flex items-center"
+            >
+              register
+            </button>
             <button
               onClick={() => document.getElementById("login").showModal()}
               className="btn bg-red text-white rounded-full px-5 flex items-center"
@@ -122,6 +128,7 @@ const Navbar = () => {
         )}
       </div>
       <Modal name="login" />
+      <Modal name="register" />
     </div>
   );
 };

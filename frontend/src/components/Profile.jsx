@@ -1,4 +1,8 @@
+import { useContext } from "react";
+import { AuthContext } from "../contexts/auth.context";
+
 const Profile = () => {
+  const { logout } = useContext(AuthContext);
   return (
     <>
       <div className="dropdown dropdown-end">
@@ -55,7 +59,7 @@ const Profile = () => {
             <a>Settings</a>
           </li>
           <li>
-            <a>Logout</a>
+            <a onClick={() => logout()}>Logout</a>
           </li>
         </ul>
       </div>

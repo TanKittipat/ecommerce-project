@@ -26,7 +26,7 @@ const AuthProvider = ({ children }) => {
 
   const auth = getAuth(app);
 
-//   check if user is logged in?
+  //   check if user is logged in?
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -34,7 +34,7 @@ const AuthProvider = ({ children }) => {
         setUser(currentUser);
       }
     });
-    return unsubscribe();
+    return unsubscribe;
   }, [auth]);
 
   const authInfo = { user, createUser, login, logout };
