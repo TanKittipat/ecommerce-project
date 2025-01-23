@@ -15,6 +15,7 @@ const Modal = ({ name }) => {
     handleSubmit,
     watch,
     formState: { errors },
+    setValue,
   } = useForm();
   const onSubmit = (data) => {
     if (name === "login") {
@@ -30,6 +31,8 @@ const Modal = ({ name }) => {
             timer: 1500,
             showConfirmButton: false,
           }).then(() => {
+            setValue("email", "");
+            setValue("password", "");
             navigate(from);
           });
         })
@@ -49,6 +52,8 @@ const Modal = ({ name }) => {
             timer: 1500,
             showConfirmButton: false,
           }).then(() => {
+            setValue("email", "");
+            setValue("password", "");
             navigate(from);
           });
         })
