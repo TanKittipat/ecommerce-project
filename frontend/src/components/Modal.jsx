@@ -118,12 +118,28 @@ const Modal = ({ name }) => {
             {name && name === "login" ? (
               <p className="text-center my-2">
                 Don't have an account?{" "}
-                <a className="underline ml-1 text-red">Sign up now!</a>
+                <a
+                  onClick={() => {
+                    document.getElementById(name).close();
+                    document.getElementById("register").showModal();
+                  }}
+                  className="underline ml-1 text-red hover:cursor-pointer"
+                >
+                  Sign up now!
+                </a>
               </p>
             ) : (
               <p className="text-center my-2">
                 Have an account?{" "}
-                <a className="underline ml-1 text-red">Sign in now!</a>
+                <a
+                  onClick={() => {
+                    document.getElementById(name).close();
+                    document.getElementById("login").showModal();
+                  }}
+                  className="underline ml-1 text-red hover:cursor-pointer"
+                >
+                  Sign in now!
+                </a>
               </p>
             )}
             {/* Providers icon */}
