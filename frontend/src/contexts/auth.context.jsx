@@ -7,6 +7,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
 
 const AuthProvider = ({ children }) => {
@@ -24,6 +26,11 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
+  const signUpWithGoogle = () => {
+    const provider = new GoogleAuthProvider();
+    return signInWithPopup(auth, provider);
+  };
+
   const auth = getAuth(app);
 
   //   check if user is logged in?
@@ -37,7 +44,7 @@ const AuthProvider = ({ children }) => {
     return unsubscribe;
   }, [auth]);
 
-  const authInfo = { user, createUser, login, logout };
+  const authInfo = { user, createUser, login, logout, signUpWithGoogle };
 
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

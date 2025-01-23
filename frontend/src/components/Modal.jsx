@@ -9,7 +9,7 @@ const Modal = ({ name }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state?.from?.pathname || "/";
-  const { login, createUser } = useContext(AuthContext);
+  const { login, createUser, signUpWithGoogle } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -61,6 +61,27 @@ const Modal = ({ name }) => {
           console.log(err);
         });
     }
+  };
+
+  const googleSignUp = () => {
+    signUpWithGoogle()
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        document.getElementById(name).close();
+        Swal.fire({
+          title: "Google authenticate",
+          text: "authenticate successfully!",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false,
+        }).then(() => {
+          navigate(from);
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -149,7 +170,10 @@ const Modal = ({ name }) => {
             )}
             {/* Providers icon */}
             <div className="space-x-3 mt-3 flex justify-center items-center">
-              <button className="btn rounded-full">
+              <button
+                onClick={() => googleSignUp()}
+                className="btn rounded-full"
+              >
                 <FaGoogle className="size-4" />
               </button>
               <button className="btn rounded-full">
