@@ -3,6 +3,9 @@ const CartItemModel = require("../models/cart.model");
 exports.getCartItems = async (req, res) => {
   try {
     const data = await CartItemModel.find();
+    if (!data || data.length === 0) {
+      return res.status(404).json({ message: "No item in cart!" });
+    }
     res.status(200).json(data);
   } catch (error) {
     res
@@ -61,8 +64,14 @@ exports.createCartItem = async (req, res) => {
 
 exports.getCartItemsByEmail = async (req, res) => {
   const { email } = req.params;
+  if (!email) {
+    return res.status(404).json({ message: "Email is missing!" });
+  }
   try {
     const data = await CartItemModel.find({ customer: email });
+    if (!data || data.length === 0) {
+      return res.status(404).json({ message: "No item in cart!" });
+    }
     res.status(200).json(data);
   } catch (error) {
     res.status(500).json({
@@ -95,6 +104,9 @@ exports.updateCartItem = async (req, res) => {
 
 exports.removeAllCartItems = async (req, res) => {
   const { email } = req.params;
+  if (!email) {
+    return res.status(404).json({ message: "Email is missing!" });
+  }
   try {
     await CartItemModel.deleteMany({ customer: email });
     res.status(200).json({
