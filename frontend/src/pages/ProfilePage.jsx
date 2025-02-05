@@ -3,31 +3,36 @@ import { AuthContext } from "../contexts/auth.context";
 
 const ProfilePage = () => {
   const { user } = useContext(AuthContext);
+  console.log(user);
+
   return (
     <div className="hero bg-base-200 h-[61.5vh]">
-      <div className="hero-content flex-col lg:flex-row">
-        {user?.photoURL ? (
+      <div className="card bg-base-100 w-96 shadow-xl">
+        <figure>
           <img
-            src={user.photoURL}
-            className="max-w-sm rounded-lg object-cover h-64 shadow-2xl"
+            src="https://images.unsplash.com/photo-1738279494075-5183d2eadc05?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="background"
+            className="h-52 w-full object-cover"
           />
-        ) : (
+        </figure>
+        <div className="absolute top-24 left-32">
           <img
-            src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
-            className="max-w-sm rounded-lg shadow-2xl"
+            src={user?.photoURL}
+            alt="profile"
+            className="size-32 rounded-full object-cover"
           />
-        )}
-
-        <div>
-          <h1 className="text-5xl font-bold">{user?.displayName}</h1>
-          <p className="py-6">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-            a id nisi.
+        </div>
+        <div className="card-body mt-2">
+          <h2 className="card-title">{user?.displayName}</h2>
+          <p>
+            <span className="font-semibold">Email : </span>
+            {user?.email}
           </p>
-          <a href="/settings" className="btn bg-red text-white">
-            Edit profile
-          </a>
+          <div className="card-actions justify-end">
+            <a href="/settings" className="btn bg-red text-white">
+              Setting
+            </a>
+          </div>
         </div>
       </div>
     </div>
