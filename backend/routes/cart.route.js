@@ -11,7 +11,7 @@ router.get("/:email", CartItemController.getCartItemsByEmail);
 // Update cart item
 router.put("/:id", CartItemController.updateCartItem);
 // Remove all cart items
-router.delete("/:email", CartItemController.removeAllCartItems);
+router.delete("/remove/:email", CartItemController.removeAllCartItems);
 // Remove cart item
 router.delete("/:id", CartItemController.removeCartItem);
 

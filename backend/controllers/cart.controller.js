@@ -108,10 +108,16 @@ exports.removeAllCartItems = async (req, res) => {
     return res.status(404).json({ message: "Email is missing!" });
   }
   try {
-    await CartItemModel.deleteMany({ customer: email });
-    res.status(200).json({
-      message: "Remove cart items successfully!",
-    });
+    const cartItems = await CartItemModel.deleteMany({ customer: email });
+    if (cartItems.deletedCount > 1) {
+      return res.status(200).json({
+        message: "Remove cart items successfully!",
+      });
+    }
+    if (!cartItems) {
+      return res.status(404).json({ message: "Cart item not found!" });
+    }
+    res.status(200).json({ message: "Cart is empty!" });
   } catch (error) {
     res.status(500).json({
       message: "Something error occurred while removing cart item!",
@@ -122,7 +128,11 @@ exports.removeAllCartItems = async (req, res) => {
 exports.removeCartItem = async (req, res) => {
   const { id } = req.params;
   try {
-    await CartItemModel.deleteOne({ _id: id });
+    const data = await CartItemModel.findById(id);
+    if (!data) {
+      return res.status(404).json({ message: "Cart item not found!" });
+    }
+    await data.deleteOne();
     res.status(200).json({
       message: "Remove cart item successfully!",
     });
