@@ -7,7 +7,7 @@ router.post("/", CartItemController.createCartItem);
 // Get all cart items
 router.get("/", CartItemController.getCartItems);
 // Get all cart items by email
-router.get("/:email", CartItemController.getCartItemsByEmail);
+router.get("/user/:email", CartItemController.getCartItemsByEmail);
 // Update cart item
 router.put("/:id", CartItemController.updateCartItem);
 // Remove all cart items

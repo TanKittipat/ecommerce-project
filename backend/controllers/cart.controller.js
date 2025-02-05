@@ -84,15 +84,13 @@ exports.updateCartItem = async (req, res) => {
   const { id } = req.params;
   try {
     const cartItem = await CartItemModel.findById(id);
-    const { productName, productPrice, productImage } = req.body;
-    if (!productName || !productPrice || !productImage) {
+    const { quantity } = req.body;
+    if (!quantity) {
       return res
         .status(400)
         .json({ message: "Product information is missing!" });
     }
-    cartItem.productName = productName;
-    cartItem.productPrice = productPrice;
-    cartItem.productImage = productImage;
+    cartItem.quantity = quantity;
     await cartItem.save();
     res.status(200).json({ message: "Update cart item successfully!" });
   } catch (error) {
