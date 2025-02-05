@@ -8,14 +8,14 @@ const SettingPage = () => {
   const { updateUser, user } = useContext(AuthContext);
   const navigate = useNavigate();
   const { register, handleSubmit, setValue } = useForm();
+
   const onSubmit = (data) => {
+    // Ensure 'data' is being passed correctly from the form
     updateUser(data.displayName, data.photoURL)
-      .then((result) => {
-        const user = result.user;
-        console.log(user);
+      .then(() => {
         Swal.fire({
-          title: "Update profile",
-          text: "update your profile successfully!",
+          title: "Profile Updated",
+          text: "Your profile has been updated successfully!",
           icon: "success",
           showConfirmButton: false,
           timer: 1500,
@@ -25,7 +25,13 @@ const SettingPage = () => {
         navigate("/profile");
       })
       .catch((err) => {
-        console.log(err);
+        console.log("Error updating profile:", err);
+        Swal.fire({
+          title: "Error",
+          text: "There was an error updating your profile.",
+          icon: "error",
+          showConfirmButton: true,
+        });
       });
   };
 
@@ -42,7 +48,7 @@ const SettingPage = () => {
               type="text"
               placeholder="name"
               className="input input-bordered"
-              defaultValue={user?.displayName}
+              defaultValue={user?.displayName || ""}
               {...register("displayName", { required: true })}
             />
           </div>
@@ -54,9 +60,10 @@ const SettingPage = () => {
               type="text"
               placeholder="profile picture url"
               className="input input-bordered"
-              defaultValue={user?.photoURL}
+              defaultValue={user?.photoURL || ""}
               {...register("photoURL", { required: true })}
             />
+            {/* Optional: You can uncomment the next line to allow image upload */}
             {/* <input type="file" className="file-input w-full max-w-xs" /> */}
           </div>
           <div className="form-control mt-6">
