@@ -1,6 +1,16 @@
 const CartItemModel = require("../models/cart.model");
 
 exports.getCartItems = async (req, res) => {
+  // Get cart items
+  /**
+    #swagger.tags = ['Cart']
+    #swagger.summary = "Get all cart items"
+    #swagger.description = 'Endpoint to fetch all cart items'
+    #swagger.response[200] = {
+       schema:{ "$ref": "#components/schemas/CartItemResponse"},
+       description: "Fetch cart items successfully"
+    }
+  */
   try {
     const data = await CartItemModel.find();
     if (!data || data.length === 0) {
@@ -15,6 +25,26 @@ exports.getCartItems = async (req, res) => {
 };
 
 exports.createCartItem = async (req, res) => {
+  // Create new cart item
+  /**
+    #swagger.tags = ['Cart']
+    #swagger.summary = "Create a new cart item"
+    #swagger.description = 'Endpoint to create a new cart item'
+    #swagger.requestBody = {
+       required:true,
+       content:{
+         "application/json":{
+           schema:{
+             $ref:"#components/schemas/NewCartItem"
+           }
+         }
+       }
+    }
+    #swagger.response[200] = {
+       schema:{ "$ref": "#components/schemas/CartItemResponse"},
+       description: "Cart item created successfully"
+    }
+  */
   const {
     customer,
     productId,
@@ -63,6 +93,16 @@ exports.createCartItem = async (req, res) => {
 };
 
 exports.getCartItemsByEmail = async (req, res) => {
+  // Get cart items by email
+  /**
+    #swagger.tags = ['Cart']
+    #swagger.summary = "Get all cart items by email"
+    #swagger.description = 'Endpoint to fetch user all cart items'
+    #swagger.response[200] = {
+       schema:{ "$ref": "#components/schemas/CartItemResponse"},
+       description: "Fetch cart items successfully"
+    }
+  */
   const { email } = req.params;
   if (!email) {
     return res.status(404).json({ message: "Email is missing!" });
@@ -81,6 +121,26 @@ exports.getCartItemsByEmail = async (req, res) => {
 };
 
 exports.updateCartItem = async (req, res) => {
+  // Update cart item data
+  /**
+    #swagger.tags = ['Cart']
+    #swagger.summary = "Update cart item data"
+    #swagger.description = 'Endpoint to update cart item data'
+    #swagger.requestBody = {
+       required:true,
+       content:{
+         "application/json":{
+           schema:{
+             $ref:"#components/schemas/UpdatedCartItem"
+           }
+         }
+       }
+    }
+    #swagger.response[200] = {
+       schema:{ "$ref": "#components/schemas/CartItemResponse"},
+       description: "Cart item updated successfully"
+    }
+  */
   const { id } = req.params;
   try {
     const cartItem = await CartItemModel.findById(id);
@@ -101,6 +161,16 @@ exports.updateCartItem = async (req, res) => {
 };
 
 exports.removeAllCartItems = async (req, res) => {
+  // Remove all cart items
+  /**
+    #swagger.tags = ['Cart']
+    #swagger.summary = "Remove all cart items"
+    #swagger.description = 'Endpoint to remove all cart items'
+    #swagger.response[200] = {
+       schema:{ "$ref": "#components/schemas/CartItemResponse"},
+       description: "Remove cart items successfully"
+    }
+  */
   const { email } = req.params;
   if (!email) {
     return res.status(404).json({ message: "Email is missing!" });
@@ -124,6 +194,16 @@ exports.removeAllCartItems = async (req, res) => {
 };
 
 exports.removeCartItem = async (req, res) => {
+  // Remove cart item
+  /**
+    #swagger.tags = ['Cart']
+    #swagger.summary = "Remove cart item by id"
+    #swagger.description = 'Endpoint to remove cart item by id'
+    #swagger.response[200] = {
+       schema:{ "$ref": "#components/schemas/CartItemResponse"},
+       description: "Remove cart item successfully"
+    }
+  */
   const { id } = req.params;
   try {
     const data = await CartItemModel.findById(id);

@@ -1,5 +1,5 @@
 {
-  "openapi": "3.1.0",
+  "openapi": "3.0.0",
   "info": {
     "version": "1.0.0",
     "title": "SE Shop REST API",
@@ -104,7 +104,22 @@
     },
     "/api/v1/products/": {
       "post": {
-        "description": "",
+        "tags": [
+          "Product"
+        ],
+        "summary": "Create a new product",
+        "description": "Endpoint to create a new product",
+        "parameters": [
+          {
+            "name": "file",
+            "in": "formData",
+            "required": true,
+            "description": "Image to upload to Firebase Storage and get its url",
+            "schema": {
+              "type": "file"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -117,31 +132,22 @@
           }
         },
         "requestBody": {
+          "required": true,
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "example": "any"
-                  },
-                  "description": {
-                    "example": "any"
-                  },
-                  "price": {
-                    "example": "any"
-                  },
-                  "category": {
-                    "example": "any"
-                  }
-                }
+                "$ref": "#components/schemas/NewProduct"
               }
             }
           }
         }
       },
       "get": {
-        "description": "",
+        "tags": [
+          "Product"
+        ],
+        "summary": "Get all product",
+        "description": "Endpoint to fetch all product data",
         "responses": {
           "200": {
             "description": "OK"
@@ -154,7 +160,11 @@
     },
     "/api/v1/products/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Product"
+        ],
+        "summary": "Get product by Id",
+        "description": "Endpoint to fetch a product data by using id",
         "parameters": [
           {
             "name": "id",
@@ -178,7 +188,11 @@
         }
       },
       "delete": {
-        "description": "",
+        "tags": [
+          "Product"
+        ],
+        "summary": "Delete product by Id",
+        "description": "Endpoint to delete a product data by using id",
         "parameters": [
           {
             "name": "id",
@@ -202,7 +216,11 @@
         }
       },
       "put": {
-        "description": "",
+        "tags": [
+          "Product"
+        ],
+        "summary": "Update product data",
+        "description": "Endpoint to update product data",
         "parameters": [
           {
             "name": "id",
@@ -210,6 +228,15 @@
             "required": true,
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "file",
+            "in": "formData",
+            "required": true,
+            "description": "Image to upload to Firebase Storage and get its url",
+            "schema": {
+              "type": "file"
             }
           }
         ],
@@ -228,26 +255,189 @@
           }
         },
         "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#components/schemas/NewProduct"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cartItems/": {
+      "post": {
+        "tags": [
+          "Cart"
+        ],
+        "summary": "Create a new cart item",
+        "description": "Endpoint to create a new cart item",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "example": "any"
-                  },
-                  "description": {
-                    "example": "any"
-                  },
-                  "price": {
-                    "example": "any"
-                  },
-                  "category": {
-                    "example": "any"
-                  }
-                }
+                "$ref": "#components/schemas/NewCartItem"
               }
             }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Cart"
+        ],
+        "summary": "Get all cart items",
+        "description": "Endpoint to fetch all cart items",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/cartItems/user/{email}": {
+      "get": {
+        "tags": [
+          "Cart"
+        ],
+        "summary": "Get all cart items by email",
+        "description": "Endpoint to fetch user all cart items",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/cartItems/{id}": {
+      "put": {
+        "tags": [
+          "Cart"
+        ],
+        "summary": "Update cart item data",
+        "description": "Endpoint to update cart item data",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#components/schemas/UpdatedCartItem"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Cart"
+        ],
+        "summary": "Remove cart item by id",
+        "description": "Endpoint to remove cart item by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/cartItems/remove/{email}": {
+      "delete": {
+        "tags": [
+          "Cart"
+        ],
+        "summary": "Remove all cart items",
+        "description": "Endpoint to remove all cart items",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
