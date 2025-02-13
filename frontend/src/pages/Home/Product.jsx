@@ -6,6 +6,7 @@ import { useRef } from "react";
 import Card from "../../components/Card";
 import { useEffect } from "react";
 import ProductServices from "../../services/product.service";
+import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 
 const SampleNextArrow = (props) => {
   const { className, style, onClick } = props;
@@ -33,16 +34,16 @@ const SamplePrevArrow = (props) => {
 
 const Product = () => {
   const [products, setProducts] = useState([]);
-  useEffect(()=>{
-    const fetchData = async()=>{
+  useEffect(() => {
+    const fetchData = async () => {
       const res = await ProductServices.getAllProducts();
-      if(res.status === 200) {
-        const specials = res.data.filter((item)=>item.category === "gadgets");
-        setProducts(specials)
+      if (res.status === 200) {
+        const specials = res.data.filter((item) => item.category === "gadgets");
+        setProducts(specials);
       }
-    }
-    fetchData()
-  },[]);
+    };
+    fetchData();
+  }, []);
 
   const slider = useRef(null);
   const setting = {
@@ -88,18 +89,18 @@ const Product = () => {
         <p className="subtitle">Special Items</p>
         <h2 className="title">Standout Items From Our Products</h2>
       </div>
-      <div className="md:absolute right-3 top-8 mb-10 md:mr-24">
+      <div className="md:absolute right-3 top-8 space-x-1 mb-10 md:mr-24">
         <button
           className="btn bg-red p-2 rounded-full h-10 w-10 mt-5 text-white"
           onClick={() => slider?.current?.slickPrev()}
         >
-          &lt;
+          <GrFormPrevious />
         </button>
         <button
           className="btn bg-red p-2 rounded-full h-10 w-10 mt-5 text-white"
           onClick={() => slider?.current?.slickNext()}
         >
-          &gt;
+          <GrFormNext />
         </button>
         {/* &lt; , &gt; คือ น้อยกว่า และ มากกว่า */}
       </div>
