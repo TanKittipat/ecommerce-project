@@ -16,6 +16,7 @@ import {
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [isLogin, setIsLogin] = useState(false);
 
   const createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -59,7 +60,9 @@ const AuthProvider = ({ children }) => {
       setUser(currentUser);
       if (currentUser) {
         setUser(currentUser);
+        setIsLogin(true);
       }
+      setIsLogin(true);
     });
     return unsubscribe;
   }, [auth]);
@@ -73,6 +76,7 @@ const AuthProvider = ({ children }) => {
     signUpWithGithub,
     signUpWithFacebook,
     updateUser,
+    isLogin,
   };
 
   return (

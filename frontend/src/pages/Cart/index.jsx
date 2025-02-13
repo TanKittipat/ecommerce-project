@@ -12,7 +12,7 @@ const Cart = () => {
   const { user } = useContext(AuthContext);
   console.log(cart);
 
-  const totalPrice = () => {
+  const totalPrice = (cart) => {
     let total = 0;
     for (let i = 0; i < cart.length; i++) {
       total += cart[i].productPrice * cart[i].quantity;
@@ -160,7 +160,7 @@ const Cart = () => {
 
   return (
     <>
-      <div className="section-container bg-gradient-to-r from-[#FAFAFA] from-0% to-[#FCFCFC] to-100% h-[61.5vh]">
+      <div className="section-container bg-gradient-to-r from-[#FAFAFA] from-0% to-[#FCFCFC] to-100% h-[80.5vh]">
         <div className="justify-end items-end flex p-2">
           <button
             className="btn btn-ghost text-red"
@@ -251,7 +251,6 @@ const Cart = () => {
         </div>
         {cart.length > 0 ? (
           <div className="overflow-x-auto">
-            <table className="table"></table>
             <hr />
             <div className="flex flex-col md:flex-row justify-between items-start my-12 gap-8">
               <div className="md:w-1/2 space-y-3">
@@ -262,8 +261,8 @@ const Cart = () => {
               </div>
               <div className="md:w-1/2 space-y-3">
                 <h3 className="text-lg font-semibold">Shopping Details</h3>
-                <p>Total Items: {cart.length}</p>
-                <p>Email: {totalPrice()}</p>
+                <p>Total Items: {cart.length} items</p>
+                <p>Email: {formatPrice(totalPrice(cart))}</p>
                 <button className="btn bg-red text-white">
                   Proceed to Checkout
                 </button>

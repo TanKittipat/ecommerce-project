@@ -11,6 +11,8 @@ const Card = ({ item }) => {
   const [isHeartFilled, setIsHeartFilled] = useState(false);
   const { _id, name, description, price, image, category } = item;
 
+  console.log(user);
+
   const handleHeartClick = () => {
     setIsHeartFilled(!isHeartFilled);
   };
