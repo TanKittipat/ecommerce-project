@@ -6,10 +6,18 @@ const UserLoginRedirect = ({ children }) => {
   const { user, isLogin } = useContext(AuthContext);
   console.log(user);
 
-  if (!user && isLogin === true) {
-    return <Navigate to="/" />;
+  if (isLogin === false) {
+    return (
+      <div className="flex justify-center items-center content-center">
+        <h3>Loading......</h3>
+      </div>
+    );
   }
-  return children;
+
+  if (user) {
+    return children;
+  }
+  return <Navigate to="/" />;
 };
 
 export default UserLoginRedirect;
