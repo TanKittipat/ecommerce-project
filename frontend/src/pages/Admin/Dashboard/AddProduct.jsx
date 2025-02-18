@@ -86,15 +86,14 @@ const AddProduct = () => {
           <label className="label">
             <span className="label-text">Description</span>
           </label>
-          <input
-            type="text"
+          <textarea
+            className="textarea textarea-bordered w-full"
             placeholder="product description"
-            className="input input-bordered w-full"
             required
             name="description"
             value={product.description}
             onChange={handleChange}
-          />
+          ></textarea>
         </div>
         {/* Price */}
         <div className="form-control">
