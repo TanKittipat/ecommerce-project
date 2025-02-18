@@ -17,7 +17,7 @@ const AdminLayout = () => {
         <div>
           <div className="drawer lg:drawer-open">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-            <div className="drawer-content flex flex-col items-center justify-center">
+            <div className="drawer-content flex flex-col items-center justify-center bg-red">
               {/* Page content here */}
               <Outlet />
             </div>
@@ -71,7 +71,7 @@ const AdminLayout = () => {
                   <div class="flex-grow border-t border-gray-400"></div>
                 </div>
                 <li>
-                  <a>
+                  <a href="/">
                     <IoHome className="text-gray-700" />
                     Home
                   </a>
