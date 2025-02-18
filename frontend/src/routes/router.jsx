@@ -6,6 +6,9 @@ import Cart from "../pages/Cart";
 import ProfilePage from "../pages/ProfilePage";
 import SettingPage from "../pages/SettingPage";
 import UserLoginRedirect from "./Redirect";
+import AdminLayout from "../layouts/AdminLayout";
+import Dashboard from "../pages/Admin/Dashboard";
+import AddProduct from "../pages/Admin/Dashboard/AddProduct";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +41,14 @@ const router = createBrowserRouter([
           </UserLoginRedirect>
         ),
       },
+    ],
+  },
+  {
+    path: "dashboard",
+    element: <AdminLayout />,
+    children: [
+      { path: "", element: <Dashboard /> },
+      { path: "add-product", element: <AddProduct /> },
     ],
   },
 ]);
