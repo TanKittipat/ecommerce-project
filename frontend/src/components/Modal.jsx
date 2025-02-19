@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { AuthContext } from "../contexts/auth.context";
 import Swal from "sweetalert2";
 import { useNavigate, useLocation } from "react-router";
+import UserServices from "../services/user.service";
 
 const Modal = ({ name }) => {
   const navigate = useNavigate();
@@ -41,8 +42,9 @@ const Modal = ({ name }) => {
         });
     } else {
       createUser(data.email, data.password)
-        .then((result) => {
+        .then(async (result) => {
           const user = result.user;
+          await UserServices.addUser({ email: user.email }); // Pass the email as a string
           console.log(user);
           document.getElementById(name).close();
           Swal.fire({
@@ -65,8 +67,9 @@ const Modal = ({ name }) => {
 
   const googleSignUp = () => {
     signUpWithGoogle()
-      .then((result) => {
+      .then(async (result) => {
         const user = result.user;
+        await UserServices.addUser({ email: user.email }); // Pass the email as a string
         console.log(user);
         document.getElementById(name).close();
         Swal.fire({
@@ -86,9 +89,10 @@ const Modal = ({ name }) => {
 
   const githubSignUp = () => {
     signUpWithGithub()
-      .then((result) => {
+      .then(async (result) => {
         const user = result.user;
         console.log(user);
+        await UserServices.addUser({ email: user.email }); // Pass the email as a string
         document.getElementById(name).close();
         Swal.fire({
           title: "Github authenticate",
@@ -107,9 +111,10 @@ const Modal = ({ name }) => {
 
   const facebookSignUp = () => {
     signUpWithFacebook()
-      .then((result) => {
+      .then(async (result) => {
         const user = result.user;
         console.log(user);
+        await UserServices.addUser({ email: user.email }); // Pass the email as a string
         document.getElementById(name).close();
         Swal.fire({
           title: "Facebook authenticate",

@@ -9,6 +9,7 @@ import UserLoginRedirect from "./Redirect";
 import AdminLayout from "../layouts/AdminLayout";
 import Dashboard from "../pages/Admin/Dashboard";
 import AddProduct from "../pages/Admin/Dashboard/AddProduct";
+import ManageItems from "../pages/Admin/Dashboard/ManageItems";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,7 @@ const router = createBrowserRouter([
     children: [
       { path: "", element: <Dashboard /> },
       { path: "add-product", element: <AddProduct /> },
+      { path: "manage-items", element: <ManageItems /> },
     ],
   },
 ]);

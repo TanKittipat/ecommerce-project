@@ -140,6 +140,15 @@ const AddProduct = () => {
             className="file-input file-input-bordered w-full"
           />
         </div>
+        {product.file && (
+          <div className="w-full rounded-md mt-4">
+            <img
+              className="w-full rounded-md"
+              src={URL.createObjectURL(product.file)}
+              alt="preview"
+            />
+          </div>
+        )}
       </div>
       <div className="space-x-1 justify-between flex mt-6">
         <button

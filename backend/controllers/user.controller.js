@@ -1,74 +1,54 @@
-const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const UserModel = require("../models/user.model");
 require("dotenv").config();
 const secret = process.env.SECRET;
-const salt = bcrypt.genSaltSync(10);
 
-// register new user
-exports.register = async (req, res) => {
-  const {username, password} = req.body;
-  if (!username || !password) {
-    return res.status(400).json({ message: "Please fill in all fields!" });
+exports.sign = async (req, res) => {
+  const { email } = req.body;
+  if (!email) {
+    return res.status(400).json({ message: "Email is required!" });
   }
   try {
-    const hashedPassword = bcrypt.hashSync(password, salt);
-    const newUser = await UserModel.create({
-      username,
-      password: hashedPassword,
+    const user = await UserModel.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found!" });
+    }
+
+    // Sign token
+    const token = jwt.sign({ email: user.email, role: user.role }, secret, {
+      expiresIn: "1h",
     });
-    res.status(201).json({ message: "User created.", user: newUser });
+
+    res.status(200).json({ token });
   } catch (error) {
-    res.status(500).json({
-      message:
-        error.message || "Something error occurred while registering new user!",
-    });
+    console.error("Error during sign:", error.message); // Log the error for debugging
+    res.status(500).json({ message: error.message });
   }
 };
 
-// login user
-exports.login = async (req, res) => {
-  const { username, password } = req.body;
-  if (!username || !password) {
-    return res.status(400).json({ message: "Please fill in all fields!" });
+exports.addUser = async (req, res) => {
+  const { email } = req.body;
+  if (!email) {
+    return res.status(400).json({ message: "Email is required!" });
   }
   try {
-    const user = await UserModel.findOne({ username });
-    if (!user) {
-      return res.status(400).json({ message: "User not found!" });
-    }
-    // check if password is correct
-    const isPasswordMatch = bcrypt.compareSync(password, user.password);
+    // Log to verify the email
+    console.log("Adding user:", email);
 
-    if (!isPasswordMatch) {
-      return res
-        .status(400)
-        .json({ message: "Invalid password!", accessToken: null });
+    const existedUser = await UserModel.findOne({ email });
+    if (existedUser) {
+      return res.status(200).json({ message: "User already exists!" });
     }
 
-    // generate token
-    jwt.sign(
-      { username: user.username, id: user._id },
-      secret,
-      { expiresIn: 86400 }, // 24 hours
-      (err, token) => {
-        if (err) {
-          return res
-            .status(500)
-            .json({ message: err.message || "Internal error: Can't login!" });
-        }
-        res.status(200).json({
-          message: "logged in successfully.",
-          id: user._id,
-          username: user.username,
-          accessToken: token,
-        });
-      }
-    );
+    const user = new UserModel({ email });
+    await user.save();
+
+    // Log to confirm the user is saved
+    console.log("User added successfully:", user);
+
+    res.status(201).json(user);
   } catch (error) {
-    res.status(500).json({
-      message:
-        error.message || "Something error occurred while logging in user!",
-    });
+    console.error("Error during addUser:", error.message); // Log the error for debugging
+    res.status(500).json({ message: error.message });
   }
 };

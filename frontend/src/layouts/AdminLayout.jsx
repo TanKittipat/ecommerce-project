@@ -17,7 +17,7 @@ const AdminLayout = () => {
         <div>
           <div className="drawer lg:drawer-open">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-            <div className="drawer-content flex flex-col items-center justify-center bg-red">
+            <div className="drawer-content flex flex-col items-center justify-center bg-base-300">
               {/* Page content here */}
               <Outlet />
             </div>
@@ -54,7 +54,7 @@ const AdminLayout = () => {
                   </a>
                 </li>
                 <li>
-                  <a>
+                  <a href="/dashboard/manage-items">
                     <HiShoppingCart className="text-gray-700" />
                     Manage Items
                   </a>
