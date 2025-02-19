@@ -19,7 +19,13 @@ exports.sign = async (req, res) => {
       expiresIn: "1h",
     });
 
-    res.status(200).json({ token });
+    const userInfo = {
+      token: token,
+      email: user.email,
+      role: user.role,
+    };
+
+    res.status(200).json({ userInfo });
   } catch (error) {
     console.error("Error during sign:", error.message); // Log the error for debugging
     res.status(500).json({ message: error.message });

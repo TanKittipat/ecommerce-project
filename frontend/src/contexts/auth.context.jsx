@@ -1,4 +1,6 @@
 import { useState, useEffect, createContext } from "react";
+import { Cookies } from "react-cookie";
+import UserServices from "../services/user.service";
 export const AuthContext = createContext();
 import app from "../configs/firebase.config";
 import {
@@ -17,6 +19,13 @@ import {
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLogin, setIsLogin] = useState(false);
+  const cookies = new Cookies();
+
+  const getUser = () => {
+    const userInfo = cookies.get("user") || null;
+
+    return userInfo;
+  };
 
   const createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -56,11 +65,20 @@ const AuthProvider = ({ children }) => {
 
   //   check if user is logged in?
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
       if (currentUser) {
         setUser(currentUser);
         setIsLogin(true);
+        const { email } = currentUser;
+        const res = await UserServices.signUser({ email: email });
+        const { data } = res;
+        if (data) {
+          console.log(data);
+          cookies.set("user", data);
+        } else {
+          cookies.remove("user");
+        }
       }
       setIsLogin(true);
     });
@@ -77,6 +95,7 @@ const AuthProvider = ({ children }) => {
     signUpWithFacebook,
     updateUser,
     isLogin,
+    getUser,
   };
 
   return (
