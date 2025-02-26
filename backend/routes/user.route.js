@@ -33,5 +33,7 @@ router.patch(
   [authJwt.verifyToken, authJwt.isAdmin],
   userController.makeUser
 );
+// get role
+router.get("/role/:id", userController.getRoleById);
 
 module.exports = router;

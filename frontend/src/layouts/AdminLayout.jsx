@@ -1,5 +1,5 @@
 import { Outlet } from "react-router";
-import { isValidElement } from "react";
+import { isValidElement, useContext } from "react";
 import logo from "/logo.png";
 import "./main.css";
 import { IoMdAdd } from "react-icons/io";
@@ -8,8 +8,11 @@ import { FaUser, FaShoppingBag } from "react-icons/fa";
 import { IoHome } from "react-icons/io5";
 import { AiFillProduct } from "react-icons/ai";
 import { MdSpatialTracking, MdSupportAgent } from "react-icons/md";
+import { BiSolidDoorOpen } from "react-icons/bi";
+import { AuthContext } from "../contexts/auth.context";
 
 const AdminLayout = () => {
+  const { logout } = useContext(AuthContext);
   const isAdmin = true;
   return (
     <div>
@@ -60,7 +63,7 @@ const AdminLayout = () => {
                   </a>
                 </li>
                 <li>
-                  <a>
+                  <a href="/dashboard/all-users">
                     <FaUser className="text-gray-700" />
                     All Users
                   </a>
@@ -93,6 +96,17 @@ const AdminLayout = () => {
                     <MdSupportAgent className="text-gray-700" />
                     Customer Support
                   </a>
+                </li>
+                <div class="relative flex py-5 items-center">
+                  <div class="flex-grow border-t border-gray-400"></div>
+                  <span class="flex-shrink mx-4 text-gray-400">Menu</span>
+                  <div class="flex-grow border-t border-gray-400"></div>
+                </div>
+                <li>
+                  <button onClick={() => logout()}>
+                    <BiSolidDoorOpen className="text-gray-700" />
+                    Logout
+                  </button>
                 </li>
               </ul>
             </div>

@@ -15,7 +15,7 @@ const AdminProtect = ({ children }) => {
     );
   }
 
-  if (user && userInfo?.role === "admin") {
+  if (user && userInfo?.userInfo?.role === "admin") {
     return children;
   }
   return <Navigate to="/" />;

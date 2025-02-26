@@ -15,6 +15,7 @@ import {
   signInWithPopup,
   updateProfile,
 } from "firebase/auth";
+import Swal from "sweetalert2";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -36,7 +37,20 @@ const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    return signOut(auth);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You will be logged out!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#c1121f",
+      cancelButtonColor: "#e5e5e5",
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        return signOut(auth);
+      }
+    });
   };
 
   const signUpWithGoogle = () => {

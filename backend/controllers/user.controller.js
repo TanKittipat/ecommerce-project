@@ -144,3 +144,18 @@ exports.makeUser = async (req, res) => {
     });
   }
 };
+
+exports.getRoleById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const user = await UserModel.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found!" });
+    }
+    res.json({ role: user.role });
+  } catch (error) {
+    res.status(500).json({
+      message: "Something error occurred while getting all users!",
+    });
+  }
+};
