@@ -6,7 +6,7 @@ const Profile = () => {
   const { logout, user, getUser } = useContext(AuthContext);
   const [cart, refetch] = useCart();
   console.log(getUser());
-  const { userInfo } = getUser();
+  const userInfo = getUser();
   console.log(userInfo);
 
   return (

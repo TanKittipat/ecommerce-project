@@ -76,9 +76,9 @@ const AuthProvider = ({ children }) => {
         if (data) {
           console.log(data);
           cookies.set("user", data);
-        } else {
-          cookies.remove("user");
         }
+      } else {
+        cookies.remove("user");
       }
       setIsLogin(true);
     });
