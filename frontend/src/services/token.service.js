@@ -3,7 +3,9 @@ const cookie = new Cookies();
 
 const getLocalAccessToken = () => {
   const user = getUser(); // Make sure we are getting the user object correctly
-  return user && user.token; // Ensure the token is accessible and exists
+  console.log(user.userInfo.token);
+
+  return user ? user.userInfo.token : null; // Ensure the token is accessible and exists
 };
 
 const getUser = () => {

@@ -1,6 +1,7 @@
 import axios from "axios";
 const baseURL = import.meta.env.VITE_BASEURL;
-import TokenServices from "./token.service";
+import { Cookies } from "react-cookie";
+const cookies = new Cookies();
 
 const instance = axios.create({
   baseURL: baseURL,
@@ -9,16 +10,21 @@ const instance = axios.create({
   },
 });
 
-// add interceptor to instance to attach header ["x-access-token"]
+// Interceptor to attach the token to every request if it exists
 instance.interceptors.request.use(
   (config) => {
-    const token = TokenServices.getLocalAccessToken();
+    console.log(config);
+
+    const token = cookies.get("user");
+
     if (token) {
-      config.headers["x-access-token"] = token;
+      config.headers["x-access-token"] = token.userInfo.token;
     }
+    console.log("Request Headers:", config.headers);
     return config;
   },
   (err) => {
+    console.error("Interceptor error:", err);
     return Promise.reject(err);
   }
 );

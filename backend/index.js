@@ -5,6 +5,7 @@ require("dotenv").config();
 const UserRoute = require("./routes/user.route");
 const ProductRoute = require("./routes/product.route");
 const CartItemRoute = require("./routes/cart.route");
+const StripeRoute = require("./routes/stripe.route");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./docs/swagger.json");
 
@@ -39,6 +40,7 @@ app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/api/v1/auth", UserRoute);
 app.use("/api/v1/products", ProductRoute);
 app.use("/api/v1/cartItems", CartItemRoute);
+app.use("/api/v1/stripe", StripeRoute);
 
 // Make app listen on selected port
 app.listen(port, () => {

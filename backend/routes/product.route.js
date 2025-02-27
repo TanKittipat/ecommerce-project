@@ -2,9 +2,17 @@ const express = require("express");
 const router = express.Router();
 const ProductController = require("../controllers/product.controller");
 const { upload, uploadToFirebase } = require("../middlewares/file.middleware");
+const authJwt = require("../middlewares/auth.middleware");
 
 // create new product
-router.post("/", upload, uploadToFirebase, ProductController.createProduct)
+router.post(
+  "/",
+  authJwt.verifyToken,
+  authJwt.isAdmin,
+  upload,
+  uploadToFirebase,
+  ProductController.createProduct
+);
 
 // get all products
 router.get("/", ProductController.getAllProducts);
@@ -13,9 +21,21 @@ router.get("/", ProductController.getAllProducts);
 router.get("/:id", ProductController.getProductById);
 
 // delete product by id
-router.delete("/:id", ProductController.deleteProduct);
+router.delete(
+  "/:id",
+  authJwt.verifyToken,
+  authJwt.isAdmin,
+  ProductController.deleteProduct
+);
 
 // update product by id
-router.put("/:id", upload, uploadToFirebase, ProductController.updateProduct);
+router.put(
+  "/:id",
+  authJwt.verifyToken,
+  authJwt.isAdmin,
+  upload,
+  uploadToFirebase,
+  ProductController.updateProduct
+);
 
 module.exports = router;

@@ -6,6 +6,7 @@ import { AuthContext } from "../../contexts/auth.context";
 import { useContext } from "react";
 import { FiPlus } from "react-icons/fi";
 import { FiMinus } from "react-icons/fi";
+import CheckOutBtn from "../../components/CheckOutBtn";
 
 const Cart = () => {
   const [cart, refetch] = useCart();
@@ -263,9 +264,7 @@ const Cart = () => {
                 <h3 className="text-lg font-semibold">Shopping Details</h3>
                 <p>Total Items: {cart.length} items</p>
                 <p>Email: {formatPrice(totalPrice(cart))}</p>
-                <button className="btn bg-red text-white">
-                  Proceed to Checkout
-                </button>
+                <CheckOutBtn cartItems={cart} />
               </div>
             </div>
           </div>

@@ -2,6 +2,8 @@ const Stripe = require("stripe");
 const stripe = new Stripe(process.env.stripeKey);
 
 exports.createCheckOutSession = async (req, res) => {
+  console.log(req.body.cart);
+
   const cartItems = req.body.cart;
   const products = cartItems.map((item) => {
     return {
@@ -79,10 +81,15 @@ exports.createCheckOutSession = async (req, res) => {
         },
       },
     ],
+    phone_number_collection: {
+      enable: true,
+    },
     line_items,
     customer: customer.id,
     mode: "payment",
     success_url: `${process.env.FRONTEND_URL}/checkout-success`,
     cancel_url: `${process.env.FRONTEND_URL}/cart`,
   });
+
+  res.send({ url: session.url });
 };

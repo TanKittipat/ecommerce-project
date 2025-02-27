@@ -24,6 +24,7 @@ const AuthProvider = ({ children }) => {
 
   const getUser = () => {
     const userInfo = cookies.get("user") || null;
+    console.log(userInfo);
 
     return userInfo;
   };

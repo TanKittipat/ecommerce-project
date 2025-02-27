@@ -30,6 +30,8 @@ const AddProduct = () => {
       data.set("price", product.price);
       data.set("category", product.category);
       data.set("file", product.file);
+      console.log(data);
+
       const res = await ProductServices.addNewProduct(data);
       if (res.status === 200) {
         Swal.fire({
