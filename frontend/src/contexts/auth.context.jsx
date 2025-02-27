@@ -85,6 +85,7 @@ const AuthProvider = ({ children }) => {
         setUser(currentUser);
         setIsLogin(true);
         const { email } = currentUser;
+        // Call addUser after user is logged in
         const res = await UserServices.signUser({ email: email });
         const { data } = res;
         if (data) {

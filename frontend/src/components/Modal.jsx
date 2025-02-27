@@ -69,7 +69,8 @@ const Modal = ({ name }) => {
     signUpWithGoogle()
       .then(async (result) => {
         const user = result.user;
-        await UserServices.addUser({ email: user.email }); // Pass the email as a string
+        // Pass the email of the authenticated user to addUser()
+        await UserServices.addUser({ email: user.email });
         console.log(user);
         document.getElementById(name).close();
         Swal.fire({
@@ -91,8 +92,9 @@ const Modal = ({ name }) => {
     signUpWithGithub()
       .then(async (result) => {
         const user = result.user;
+        // Pass the email of the authenticated user to addUser()
+        await UserServices.addUser({ email: user.email });
         console.log(user);
-        await UserServices.addUser({ email: user.email }); // Pass the email as a string
         document.getElementById(name).close();
         Swal.fire({
           title: "Github authenticate",
@@ -113,8 +115,9 @@ const Modal = ({ name }) => {
     signUpWithFacebook()
       .then(async (result) => {
         const user = result.user;
+        // Pass the email of the authenticated user to addUser()
+        await UserServices.addUser({ email: user.email });
         console.log(user);
-        await UserServices.addUser({ email: user.email }); // Pass the email as a string
         document.getElementById(name).close();
         Swal.fire({
           title: "Facebook authenticate",

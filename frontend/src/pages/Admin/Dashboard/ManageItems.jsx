@@ -42,7 +42,10 @@ const ManageItems = () => {
     }
   };
   return (
-    <div className="px-5">
+    <div>
+      <h1 className="text-2xl text-center my-4 font-bold">
+        Product in this Store
+      </h1>
       <table className="table">
         {/* head */}
         <thead className="bg-[#d6ccc2] text-white text-center">

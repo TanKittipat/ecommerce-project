@@ -12,6 +12,7 @@ import AddProduct from "../pages/Admin/Dashboard/AddProduct";
 import ManageItems from "../pages/Admin/Dashboard/ManageItems";
 import AdminProtect from "./AdminProtect";
 import AllUser from "../pages/Admin/Dashboard/AllUser";
+import CheckOutSuccess from "../pages/CheckOut";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
             <SettingPage />
           </UserLoginRedirect>
         ),
+      },
+      {
+        path: "checkout-success",
+        element: <CheckOutSuccess />,
       },
     ],
   },
