@@ -48,10 +48,13 @@ const AllUser = () => {
   }, []);
   return (
     <div>
+      <h1 className="text-2xl text-center font-bold my-4">
+        Manage users in this system
+      </h1>
       <div className="overflow-x-auto">
         <table className="table text-center w-full">
           {/* head */}
-          <thead>
+          <thead className="bg-[#d6ccc2]">
             <tr>
               <th>#</th>
               <th>Email</th>
@@ -59,12 +62,12 @@ const AllUser = () => {
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="bg-white">
             {users?.map((user, index) => (
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>{user.email}</td>
-                <td className="flex gap-3">
+                <td className="flex gap-3 justify-center items-center object-center">
                   <p>user</p>
                   <input
                     type="checkbox"
@@ -75,7 +78,7 @@ const AllUser = () => {
                   <p>admin</p>
                 </td>
                 <td>
-                  <div className="gap-2 flex">
+                  <div className="gap-2 flex justify-center items-center object-center">
                     <button className="btn btn-warning">
                       <MdEdit />
                     </button>
@@ -88,7 +91,7 @@ const AllUser = () => {
             ))}
           </tbody>
           {/* foot */}
-          <tfoot>
+          <tfoot className="bg-white">
             <tr>
               <th>#</th>
               <th>Email</th>

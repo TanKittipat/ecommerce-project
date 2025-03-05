@@ -10,6 +10,7 @@ const CheckOutBtn = ({ cartItems }) => {
       email: user.email,
     })
       .then((res) => {
+        StripeServices.webhook();
         if (res.data.url) {
           window.location.href = res.data.url;
         }

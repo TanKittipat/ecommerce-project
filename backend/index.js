@@ -32,6 +32,8 @@ app.get("/", (req, res) => {
   res.send("<h1>Hello, e-commerce!</h1>");
 });
 
+// Stripe webhook must use raw body
+app.use("/api/v1/stripe/webhook", express.raw({ type: "application/json" }));
 // Make app use json
 app.use(express.json());
 
