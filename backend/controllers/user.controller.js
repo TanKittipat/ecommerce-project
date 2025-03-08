@@ -73,6 +73,21 @@ exports.getAllUsers = async (req, res) => {
   }
 };
 
+exports.getUserById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const user = await UserModel.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found!" });
+    }
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({
+      message: "Something error occurred while getting user by id!",
+    });
+  }
+};
+
 exports.updateUser = async (req, res) => {
   const { id } = req.params;
   const { email, role } = req.body;

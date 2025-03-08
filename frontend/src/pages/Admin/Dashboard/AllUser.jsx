@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import UserServices from "../../../services/user.service";
 import { MdDelete, MdEdit } from "react-icons/md";
+import ModalUser from "../../../components/ModalUser";
 
 const AllUser = () => {
   const [users, setUsers] = useState([]);
@@ -91,7 +92,12 @@ const AllUser = () => {
                 </td>
                 <td>
                   <div className="gap-2 flex justify-center items-center object-center">
-                    <button className="btn btn-warning">
+                    <button
+                      className="btn btn-warning"
+                      onClick={() => {
+                        document.getElementById(user._id).showModal();
+                      }}
+                    >
                       <MdEdit />
                     </button>
                     <button className="btn btn-error">
@@ -99,6 +105,7 @@ const AllUser = () => {
                     </button>
                   </div>
                 </td>
+                <ModalUser id={user._id} />
               </tr>
             ))}
           </tbody>

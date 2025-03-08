@@ -9,6 +9,8 @@ router.post("/sign", userController.sign);
 router.post("/", userController.addUser);
 // get all users
 router.get("/", userController.getAllUsers);
+// get user by id
+router.get("/:id", userController.getUserById);
 // update user
 router.put(
   "/:id",

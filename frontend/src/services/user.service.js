@@ -33,6 +33,10 @@ const getRoleById = async (id) => {
   return await api.get(`${API_URL}/role/${id}`);
 };
 
+const getUserById = async (id) => {
+  return await api.get(`${API_URL}/${id}`);
+};
+
 const UserServices = {
   signUser,
   addUser,
@@ -42,6 +46,7 @@ const UserServices = {
   makeAdmin,
   makeUser,
   getRoleById,
+  getUserById,
 };
 
 export default UserServices;
