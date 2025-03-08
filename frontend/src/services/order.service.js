@@ -23,6 +23,7 @@ const deleteOrder = async (id) => {
 
 const OrderServices = {
   getOrders,
+  getOrderByEmail,
   getOrderById,
   updateOrder,
   deleteOrder,

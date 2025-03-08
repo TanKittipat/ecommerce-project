@@ -3,6 +3,7 @@ import OrderServices from "../../../services/order.service";
 import { RiInfoCardLine, RiDeleteBin7Fill } from "react-icons/ri";
 import { PiMagnifyingGlass } from "react-icons/pi";
 import Swal from "sweetalert2";
+import ModalOrder from "../../../components/ModalOrder";
 
 const ManageOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -171,7 +172,12 @@ const ManageOrders = () => {
                   </select>
                 </td>
                 <td className="flex justify-center gap-2">
-                  <button className="btn btn-success">
+                  <button
+                    className="btn btn-success"
+                    onClick={() => {
+                      document.getElementById(item._id).showModal();
+                    }}
+                  >
                     <RiInfoCardLine />
                   </button>
                   <button
@@ -181,6 +187,7 @@ const ManageOrders = () => {
                     <RiDeleteBin7Fill />
                   </button>
                 </td>
+                <ModalOrder id={item._id} />
               </tr>
             ))
           ) : (
