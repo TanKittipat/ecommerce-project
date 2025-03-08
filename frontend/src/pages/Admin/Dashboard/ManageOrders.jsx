@@ -1,18 +1,21 @@
 import { useEffect, useState } from "react";
 import OrderServices from "../../../services/order.service";
 import { RiInfoCardLine, RiDeleteBin7Fill } from "react-icons/ri";
+import { PiMagnifyingGlass } from "react-icons/pi";
 import Swal from "sweetalert2";
 
 const ManageOrders = () => {
   const [orders, setOrders] = useState([]);
+  const [filteredOrders, setFilteredOrders] = useState([]);
   console.log(orders);
+  const [search, setSearch] = useState("");
 
   const [itemsPerPage, setItemsPerPage] = useState(8);
   const [currentPage, setCurrentPage] = useState(1);
   // Pagination logic
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = orders.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredOrders.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -22,6 +25,7 @@ const ManageOrders = () => {
     try {
       OrderServices.getOrders().then((res) => {
         setOrders(res.data);
+        setFilteredOrders(res.data);
       });
     } catch (error) {
       console.log(error);
@@ -93,9 +97,34 @@ const ManageOrders = () => {
     }
   };
 
+  const handleSearch = () => {
+    if (search === "") {
+      return setFilteredOrders(orders);
+    }
+    const filtered = orders.filter((order) =>
+      order.email.toLowerCase().includes(search.toLowerCase())
+    );
+    setFilteredOrders(filtered);
+  };
+
   return (
     <div>
       <h1 className="text-2xl text-center my-4 font-bold">Manage Orders</h1>
+      {/* Search */}
+      <div className="flex justify-center mt-6 mb-4 w-96 gap-2">
+        <label className="input input-bordered flex items-center gap-2 w-10/12">
+          <input
+            type="text"
+            className="grow"
+            placeholder="Search"
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <PiMagnifyingGlass />
+        </label>
+        <button className="btn" onClick={handleSearch}>
+          <PiMagnifyingGlass />
+        </button>
+      </div>
       <table className="table">
         {/* head */}
         <thead className="bg-[#d6ccc2] text-white text-center">
@@ -177,7 +206,7 @@ const ManageOrders = () => {
       {/* Pagination */}
       <div className="flex justify-center my-8 flex-wrap gap-2">
         {Array.from({
-          length: Math.ceil(orders.length / itemsPerPage),
+          length: Math.ceil(filteredOrders.length / itemsPerPage),
         }).map((_, index) => (
           <button
             onClick={() => paginate(index + 1)}
