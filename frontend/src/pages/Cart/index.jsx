@@ -270,7 +270,12 @@ const Cart = () => {
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center py-20">
-            <div className="text-2xl font-bold text-center text-red mb-4"></div>
+            <div className="text-2xl font-bold text-center text-red mb-4">
+              <p className="my-4">Look like you have nothing in cart.</p>
+              <a href="/shop" className="btn bg-red text-white">
+                Let's Shopping!
+              </a>
+            </div>
           </div>
         )}
       </div>

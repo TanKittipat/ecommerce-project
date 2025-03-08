@@ -51,7 +51,7 @@ const AdminLayout = () => {
                 </li>
 
                 <li>
-                  <a>
+                  <a href="/dashboard/orders">
                     <FaShoppingBag className="text-gray-700" />
                     Manage Orders
                   </a>

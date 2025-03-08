@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import UserServices from "../../../services/user.service";
 import { MdDelete, MdEdit } from "react-icons/md";
 import ModalUser from "../../../components/ModalUser";
+import Swal from "sweetalert2";
 
 const AllUser = () => {
   const [users, setUsers] = useState([]);
@@ -59,6 +60,42 @@ const AllUser = () => {
     setCurrentPage(pageNumber);
   };
 
+  const handleDelete = async (id) => {
+    try {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#c1121f",
+        cancelButtonColor: "#e5e5e5",
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const res = await UserServices.deleteUser(id);
+          if (res.status === 200) {
+            Swal.fire({
+              title: "Deleted!",
+              text: "User has been deleted.",
+              icon: "success",
+              timer: 1500,
+            });
+            setUsers(users.filter((user) => user._id !== id));
+          }
+        }
+      });
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+    }
+  };
+
   return (
     <div>
       <h1 className="text-2xl text-center font-bold my-4">
@@ -100,7 +137,10 @@ const AllUser = () => {
                     >
                       <MdEdit />
                     </button>
-                    <button className="btn btn-error">
+                    <button
+                      className="btn btn-error"
+                      onClick={() => handleDelete(user._id)}
+                    >
                       <MdDelete />
                     </button>
                   </div>

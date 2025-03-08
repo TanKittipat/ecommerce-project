@@ -13,6 +13,7 @@ import ManageItems from "../pages/Admin/Dashboard/ManageItems";
 import AdminProtect from "./AdminProtect";
 import AllUser from "../pages/Admin/Dashboard/AllUser";
 import CheckOutSuccess from "../pages/CheckOut";
+import ManageOrders from "../pages/Admin/Dashboard/ManageOrders";
 
 const router = createBrowserRouter([
   {
@@ -63,6 +64,7 @@ const router = createBrowserRouter([
       { path: "add-product", element: <AddProduct /> },
       { path: "manage-items", element: <ManageItems /> },
       { path: "all-users", element: <AllUser /> },
+      { path: "orders", element: <ManageOrders /> },
     ],
   },
 ]);
