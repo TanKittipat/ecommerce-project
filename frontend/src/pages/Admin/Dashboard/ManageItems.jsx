@@ -3,9 +3,12 @@ import { LuPencilLine, LuTrash2 } from "react-icons/lu";
 import Swal from "sweetalert2";
 import ProductServices from "../../../services/product.service";
 import ModalProduct from "../../../components/ModalProduct";
+import { useState } from "react";
 
 const ManageItems = () => {
   const [product, refetch] = useProduct();
+  const [itemsPerPage, setItemsPerPage] = useState(8);
+  const [currentPage, setCurrentPage] = useState(1);
   const handleDelete = async (id) => {
     try {
       Swal.fire({
@@ -41,6 +44,16 @@ const ManageItems = () => {
       });
     }
   };
+
+  // Pagination logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = product.slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <div>
       <h1 className="text-2xl text-center my-4 font-bold">
@@ -60,8 +73,8 @@ const ManageItems = () => {
           </tr>
         </thead>
         <tbody className="text-center bg-white">
-          {product.length > 0 ? (
-            product.map((item, index) => (
+          {currentItems.length > 0 ? (
+            currentItems.map((item, index) => (
               <tr key={index}>
                 <td className="font-bold">{index + 1}</td>
                 <td>
@@ -117,6 +130,22 @@ const ManageItems = () => {
           </tr>
         </tfoot>
       </table>
+      {/* Pagination */}
+      <div className="flex justify-center my-8 flex-wrap gap-2">
+        {Array.from({
+          length: Math.ceil(product.length / itemsPerPage),
+        }).map((_, index) => (
+          <button
+            onClick={() => paginate(index + 1)}
+            key={index}
+            className={`mx-1 btn btn-ghost ${
+              currentPage === index + 1 ? "bg-[#d6ccc2] text-white" : ""
+            }`}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };

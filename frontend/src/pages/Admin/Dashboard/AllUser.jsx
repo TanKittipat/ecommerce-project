@@ -4,6 +4,8 @@ import { MdDelete, MdEdit } from "react-icons/md";
 
 const AllUser = () => {
   const [users, setUsers] = useState([]);
+  const [itemsPerPage, setItemsPerPage] = useState(8);
+  const [currentPage, setCurrentPage] = useState(1);
   console.log(users);
 
   const changeRole = async (id) => {
@@ -46,6 +48,16 @@ const AllUser = () => {
       console.log(error);
     }
   }, []);
+
+  // Pagination logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = users.slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <div>
       <h1 className="text-2xl text-center font-bold my-4">
@@ -63,7 +75,7 @@ const AllUser = () => {
             </tr>
           </thead>
           <tbody className="bg-white">
-            {users?.map((user, index) => (
+            {currentItems?.map((user, index) => (
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>{user.email}</td>
@@ -100,6 +112,22 @@ const AllUser = () => {
             </tr>
           </tfoot>
         </table>
+      </div>
+      {/* Pagination */}
+      <div className="flex justify-center my-8 flex-wrap gap-2">
+        {Array.from({
+          length: Math.ceil(users.length / itemsPerPage),
+        }).map((_, index) => (
+          <button
+            onClick={() => paginate(index + 1)}
+            key={index}
+            className={`mx-1 btn btn-ghost ${
+              currentPage === index + 1 ? "bg-[#d6ccc2] text-white" : ""
+            }`}
+          >
+            {index + 1}
+          </button>
+        ))}
       </div>
     </div>
   );

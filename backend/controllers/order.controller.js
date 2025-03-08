@@ -32,6 +32,24 @@ exports.getOrderByEmail = async (req, res) => {
   }
 };
 
+exports.getOrderById = async (req, res) => {
+  const { id } = req.params;
+  if (!id) {
+    return res.status(400).json({ message: "Id is required!" });
+  }
+  try {
+    const data = await OrderModel.findById(id);
+    if (!data) {
+      return res.status(404).json({ message: "No order found!" });
+    }
+    res.status(200).json(data);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Something error occurred while fetching data!" });
+  }
+};
+
 exports.updateOrder = async (req, res) => {
   const { id } = req.params;
   if (!id) {

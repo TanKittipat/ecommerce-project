@@ -86,10 +86,11 @@ const ProductLists = () => {
               <button
                 onClick={() => filterItem(category)}
                 key={index}
-                className={`btn btn-ghost ${selectedCategory === category
-                  ? "text-red underline-offset-4 underline"
-                  : ""
-                  }`}
+                className={`btn btn-ghost ${
+                  selectedCategory === category
+                    ? "text-red underline-offset-4 underline"
+                    : ""
+                }`}
               >
                 <p className="capitalize">{category}</p>
               </button>
@@ -129,8 +130,9 @@ const ProductLists = () => {
           <button
             onClick={() => paginate(index + 1)}
             key={index}
-            className={`mx-1 btn btn-ghost ${currentPage === index + 1 ? "bg-red text-white" : ""
-              }`}
+            className={`mx-1 btn btn-ghost ${
+              currentPage === index + 1 ? "bg-red text-white" : ""
+            }`}
           >
             {index + 1}
           </button>
