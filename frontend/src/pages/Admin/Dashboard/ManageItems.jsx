@@ -2,7 +2,7 @@ import useProduct from "../../../hooks/useProduct";
 import { LuPencilLine, LuTrash2 } from "react-icons/lu";
 import Swal from "sweetalert2";
 import ProductServices from "../../../services/product.service";
-import ModalAdmin from "../../../components/ModalAdmin";
+import ModalProduct from "../../../components/ModalProduct";
 
 const ManageItems = () => {
   const [product, refetch] = useProduct();
@@ -93,7 +93,7 @@ const ManageItems = () => {
                     </button>
                   </div>
                 </td>
-                <ModalAdmin id={item._id} />
+                <ModalProduct id={item._id} />
               </tr>
             ))
           ) : (

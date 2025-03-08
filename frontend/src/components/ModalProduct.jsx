@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import ProductServices from "../services/product.service";
 
-const ModalAdmin = ({ id }) => {
+const ModalProduct = ({ id }) => {
   const [item, setItem] = useState({
     name: "",
     description: "",
@@ -212,4 +212,4 @@ const ModalAdmin = ({ id }) => {
   );
 };
 
-export default ModalAdmin;
+export default ModalProduct;

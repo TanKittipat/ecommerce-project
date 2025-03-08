@@ -3,7 +3,7 @@ const stripe = new Stripe(process.env.stripeKey);
 console.log(process.env.stripeKey);
 
 const OrderModel = require("../models/order.model");
-const CartModel = require("../models/cart.model");
+const CartItemModel = require("../models/cart.model");
 
 exports.createCheckOutSession = async (req, res) => {
   const cartItems = req.body.cart;
@@ -15,10 +15,11 @@ exports.createCheckOutSession = async (req, res) => {
   });
   const customer = await stripe.customers.create({
     metadata: {
-      email: req.body.toString(),
+      email: req.body.email.toString(),
       cart: JSON.stringify(products),
     },
   });
+
   const line_items = cartItems.map((item) => {
     return {
       price_data: {
@@ -36,9 +37,9 @@ exports.createCheckOutSession = async (req, res) => {
       quantity: item.quantity,
     };
   });
+
   const session = await stripe.checkout.sessions.create({
-    payment_method_types: ["card", "promptpay"], //patmentMethod
-    customer: customer.id,
+    payment_method_types: ["card", "promptpay"], //payment method
     shipping_address_collection: {
       allowed_countries: ["TH"],
     },
@@ -50,7 +51,7 @@ exports.createCheckOutSession = async (req, res) => {
             amount: 0,
             currency: "thb",
           },
-          display_name: "Next Day air",
+          display_name: "Free Shipping",
           delivery_estimate: {
             minimum: {
               unit: "business_day",
@@ -63,11 +64,33 @@ exports.createCheckOutSession = async (req, res) => {
           },
         },
       },
+      {
+        shipping_rate_data: {
+          type: "fixed_amount",
+          fixed_amount: {
+            amount: 4500,
+            currency: "thb",
+          },
+          display_name: "Next day air",
+          delivery_estimate: {
+            minimum: {
+              unit: "business_day",
+              value: 1,
+            },
+            maximum: {
+              unit: "business_day",
+              value: 1,
+            },
+          },
+        },
+      },
     ],
+
     phone_number_collection: {
       enabled: true,
     },
     line_items,
+    customer: customer.id,
     mode: "payment",
     success_url: `${process.env.FRONTEND_URL}/checkout-success`,
     cancel_url: `${process.env.FRONTEND_URL}/cart`,
@@ -78,7 +101,7 @@ exports.createCheckOutSession = async (req, res) => {
 
 const clearCart = async (email) => {
   try {
-    await CartModel.deleteMany({ email });
+    await CartItemModel.deleteMany({ customer: email });
     console.log("Cart is cleared");
   } catch (error) {
     res

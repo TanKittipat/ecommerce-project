@@ -23,7 +23,7 @@ const OrderSchema = new Schema(
       required: true,
       default: "pending",
     },
-    payment_status:{type:String,required:true,default:""}
+    payment_status: { type: String, required: true, default: "unpaid" },
   },
   {
     timestamps: true,
