@@ -38,7 +38,7 @@ exports.getOrderById = async (req, res) => {
     return res.status(400).json({ message: "Id is required!" });
   }
   try {
-    const data = await OrderModel.findById(id);
+    const data = await OrderModel.findById(id).populate("products.productId");
     if (!data) {
       return res.status(404).json({ message: "No order found!" });
     }

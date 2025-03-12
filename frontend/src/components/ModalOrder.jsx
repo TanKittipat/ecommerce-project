@@ -16,23 +16,6 @@ const ModalOrder = ({ id }) => {
     }
   }, [id]);
 
-  useEffect(() => {
-    if (order) {
-      order.products.map((product, index) => {
-        ProductServices.getProductById(product.productId).then((res) => {
-          setOrder((prevOrder) => {
-            const updatedProducts = [...prevOrder.products];
-            updatedProducts[index] = {
-              ...res.data,
-              quantity: product.quantity,
-            };
-            return { ...prevOrder, products: updatedProducts };
-          });
-        });
-      });
-    }
-  }, [order]);
-
   return (
     <div>
       <dialog id={id} className="modal">
@@ -64,14 +47,17 @@ const ModalOrder = ({ id }) => {
                       <td>
                         <div className="avatar">
                           <div className="mask mask-squircle h-12 w-12">
-                            <img src={product.image} alt="Product image" />
+                            <img
+                              src={product.productId.image}
+                              alt="Product image"
+                            />
                           </div>
                         </div>
                       </td>
-                      <td>{product.name}</td>
-                      <td>{product.price}฿</td>
+                      <td>{product.productId.name}</td>
+                      <td>{product.productId.price}฿</td>
                       <td>{product.quantity}</td>
-                      <td>{product.price * product.quantity}฿</td>
+                      <td>{product.productId.price * product.quantity}฿</td>
                     </tr>
                   ))}
               </tbody>
